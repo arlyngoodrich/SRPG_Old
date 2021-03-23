@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ItemData.h"
 #include "ItemBase.generated.h"
+
+
 
 UCLASS()
 class INVENTORYSYSTEM_API AItemBase : public AActor
@@ -19,8 +22,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(Replicated, EditDefaultsOnly, BlueprintReadOnly, Category = "Item Information")
+	FItemData ItemData;
+
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category = "Item Information")
+	void UpdateItemInformation(FItemData NewItemData);
 
 };

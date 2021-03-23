@@ -3,11 +3,24 @@
 
 #include "ItemBase.h"
 
+//UE4 Includes
+#include "Net/UnrealNetwork.h"
+
 // Sets default values
 AItemBase::AItemBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+
+	SetReplicates(true);
+
+}
+
+void AItemBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty >& OutLifetimeProps) const
+{
+
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AItemBase, ItemData);
+
 
 }
 
@@ -18,10 +31,10 @@ void AItemBase::BeginPlay()
 	
 }
 
-// Called every frame
-void AItemBase::Tick(float DeltaTime)
+void AItemBase::UpdateItemInformation(FItemData NewItemData)
 {
-	Super::Tick(DeltaTime);
-
+	ItemData = NewItemData;
 }
+
+
 
